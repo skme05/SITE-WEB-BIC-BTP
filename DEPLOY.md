@@ -8,7 +8,7 @@
 | `backend`  | `backend/BIC_BTP/Dockerfile`  | Django + Gunicorn. Lance `migrate` et `collectstatic` au démarrage |
 | `frontend` | `frontend/Dockerfile`         | Build Vite servi par Nginx, proxy `/api`, `/admin`, `/static` vers Django, sert `/media` |
 
-Seul le port du `frontend` (80 par défaut) est exposé. Le frontend appelle l'API sur la même origine, donc pas de souci de CORS.
+Seul le port du `frontend` (8080 par défaut, modifiable via `HTTP_PORT` dans `.env`) est exposé. Le frontend appelle l'API sur la même origine, donc pas de souci de CORS.
 
 ## Mise en route
 
@@ -31,7 +31,7 @@ docker compose up -d --build
 docker compose exec backend python manage.py createsuperuser
 ```
 
-Le site est accessible sur `http://<serveur>/`, l'admin sur `/admin/`, le healthcheck sur `/api/health/`.
+Le site est accessible sur `http://<serveur>:8080/`, l'admin sur `/admin/`, le healthcheck sur `/api/health/`.
 
 ## Commandes utiles
 
