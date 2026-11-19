@@ -31,7 +31,8 @@ services:
         VITE_API_BASE_URL: ${VITE_API_BASE_URL:-}
     restart: unless-stopped
     ports:
-      - "${HTTP_PORT:-8080}:80"
+      # Écoute uniquement en local : le Nginx du serveur (avec Certbot) fait le relais
+      - "${HTTP_BIND:-127.0.0.1}:${HTTP_PORT:-8080}:80"
     volumes:
       - media_data:/var/www/media:ro
     depends_on:
