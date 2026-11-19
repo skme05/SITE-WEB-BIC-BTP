@@ -32,7 +32,7 @@ services:
     restart: unless-stopped
     ports:
       # Écoute uniquement en local : le Nginx du serveur (avec Certbot) fait le relais
-      - "${HTTP_BIND:-127.0.0.1}:${HTTP_PORT:-8080}:80"
+      - "${HTTP_BIND:-127.0.0.1}:${HTTP_PORT:-8095}:80"
     volumes:
       - media_data:/var/www/media:ro
     depends_on:

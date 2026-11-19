@@ -9,10 +9,10 @@
 | `frontend` | `frontend/Dockerfile`         | Build Vite servi par Nginx, proxy `/api`, `/admin`, `/static` vers Django, sert `/media` |
 
 ```
-Internet ──443/80──> Nginx du serveur (Certbot) ──> 127.0.0.1:8080 ──> conteneur frontend ──> backend / db
+Internet ──443/80──> Nginx du serveur (Certbot) ──> 127.0.0.1:8095 ──> conteneur frontend ──> backend / db
 ```
 
-Seul le conteneur `frontend` publie un port : `127.0.0.1:8080` (variables `HTTP_BIND` / `HTTP_PORT` dans `.env`).
+Seul le conteneur `frontend` publie un port : `127.0.0.1:8095` (variables `HTTP_BIND` / `HTTP_PORT` dans `.env`).
 Il n'est pas joignable depuis l'extérieur, c'est le Nginx installé sur la machine qui gère les ports 80/443 et le certificat.
 Le frontend appelle l'API sur la même origine, donc pas de souci de CORS.
 
@@ -40,7 +40,7 @@ docker compose exec backend python manage.py createsuperuser
 Vérification depuis le serveur :
 
 ```bash
-curl http://127.0.0.1:8080/api/health/
+curl http://127.0.0.1:8095/api/health/
 ```
 
 ## Nginx du serveur + Certbot
@@ -96,4 +96,4 @@ docker compose exec db pg_dump -U bicbtp bicbtp > backup.sql
 - Le Nginx du serveur transmet `X-Forwarded-Proto: https`, le Nginx du conteneur le relaie tel quel à Django.
 - `DJANGO_CSRF_TRUSTED_ORIGINS` doit contenir les URLs `https://...` du site (sinon l'admin refuse la connexion).
 - `DJANGO_SECURE_COOKIES=True` uniquement une fois le HTTPS en place.
-- Si le port 8080 est déjà pris sur le serveur, changez `HTTP_PORT` dans `.env` **et** le `proxy_pass` de `/etc/nginx/sites-available/bicbtp`.
+- Si le port 8095 est déjà pris sur le serveur, changez `HTTP_PORT` dans `.env` **et** le `proxy_pass` de `/etc/nginx/sites-available/bicbtp`.
