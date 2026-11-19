@@ -45,7 +45,7 @@ curl http://127.0.0.1:8080/api/health/
 
 ## Nginx du serveur + Certbot
 
-Les DNS `bicbtp.ci` et `www.bicbtp.ci` doivent pointer vers l'IP du serveur, et les ports 80/443 être ouverts.
+Les DNS `bic-btp.infinitecorridor.io` et `www.bic-btp.infinitecorridor.io` doivent pointer vers l'IP du serveur, et les ports 80/443 être ouverts.
 
 ```bash
 sudo apt install -y nginx certbot python3-certbot-nginx
@@ -66,7 +66,7 @@ sudo nginx -t && sudo systemctl reload nginx
 Génération du certificat (Certbot ajoute le bloc 443 et la redirection HTTP → HTTPS) :
 
 ```bash
-sudo certbot --nginx -d bicbtp.ci -d www.bicbtp.ci --redirect
+sudo certbot --nginx -d bic-btp.infinitecorridor.io -d www.bic-btp.infinitecorridor.io --redirect
 ```
 
 Le renouvellement est automatique (timer systemd de Certbot). Pour le tester :
@@ -75,7 +75,7 @@ Le renouvellement est automatique (timer systemd de Certbot). Pour le tester :
 sudo certbot renew --dry-run
 ```
 
-Le site est alors accessible sur `https://bicbtp.ci/`, l'admin sur `/admin/`, le healthcheck sur `/api/health/`.
+Le site est alors accessible sur `https://bic-btp.infinitecorridor.io/`, l'admin sur `/admin/`, le healthcheck sur `/api/health/`.
 
 ## Commandes utiles
 
