@@ -188,6 +188,10 @@ STORAGES = {
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 USE_X_FORWARDED_HOST = True
 
+# Cookies "Secure" (à activer quand le site est servi en HTTPS)
+SESSION_COOKIE_SECURE = os.getenv("DJANGO_SECURE_COOKIES", "False") == "True"
+CSRF_COOKIE_SECURE = SESSION_COOKIE_SECURE
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
